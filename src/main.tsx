@@ -1,5 +1,5 @@
-import React, { StrictMode } from 'react'
-import ReactDOM from 'react-dom/client'
+import React, { StrictMode } from "react";
+import ReactDOM from "react-dom/client";
 import {
   Outlet,
   RouterProvider,
@@ -7,8 +7,11 @@ import {
   createRouter,
   createRoute,
   createRootRoute,
-} from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+} from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import "@mantine/core/styles.css";
+
+import { MantineProvider } from "@mantine/core";
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -29,52 +32,54 @@ const rootRoute = createRootRoute({
       <TanStackRouterDevtools />
     </>
   ),
-})
+});
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/',
+  path: "/",
   component: function Index() {
     return (
       <div className="p-2">
         <h3>Welcome Home!</h3>
       </div>
-    )
+    );
   },
-})
+});
 
 const hostRouter = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/host',
+  path: "/host",
   component: function HostPage() {
-    return <div className="p-2">Hello from Host!</div>
+    return <div className="p-2">Hello from Host!</div>;
   },
-})
+});
 
 const visitorRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/visitor',
+  path: "/visitor",
   component: function VisitorPage() {
-    return <div className="p-2">Hello from Test!</div>
+    return <div className="p-2">Hello from Test!</div>;
   },
-})
+});
 
-const routeTree = rootRoute.addChildren([indexRoute, hostRouter, visitorRoute])
+const routeTree = rootRoute.addChildren([indexRoute, hostRouter, visitorRoute]);
 
-const router = createRouter({ routeTree })
+const router = createRouter({ routeTree });
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface Register {
-    router: typeof router
+    router: typeof router;
   }
 }
 
-const rootElement = document.getElementById('app')!
+const rootElement = document.getElementById("app")!;
 if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement)
+  const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
-    </StrictMode>,
-  )
+      <MantineProvider>
+        <RouterProvider router={router} />
+      </MantineProvider>
+    </StrictMode>
+  );
 }
