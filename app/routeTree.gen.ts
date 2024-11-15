@@ -10,10 +10,14 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as IndexImport } from './routes/index';
-import { Route as VisitorIndexImport } from './routes/visitor/index';
-import { Route as VisitorVisitorIdImport } from './routes/visitor/$visitorId';
+import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as VisitorIndexImport } from './routes/visitor/index'
+import { Route as VisitorVisitorIdImport } from './routes/visitor/$visitorId'
+import { Route as CreatevisitCreatevisitImport } from './routes/createvisit/createvisit'
+import { Route as CreatevisitVisitFormImport } from './routes/createvisit/VisitForm'
+import { Route as CreateuserCreateuserImport } from './routes/createuser/createuser'
+import { Route as CreateuserUserFormImport } from './routes/createuser/UserForm'
 
 // Create/Update Routes
 
@@ -21,93 +25,187 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const VisitorIndexRoute = VisitorIndexImport.update({
   id: '/visitor/',
   path: '/visitor/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const VisitorVisitorIdRoute = VisitorVisitorIdImport.update({
   id: '/visitor/$visitorId',
   path: '/visitor/$visitorId',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
+
+const CreatevisitCreatevisitRoute = CreatevisitCreatevisitImport.update({
+  id: '/createvisit/createvisit',
+  path: '/createvisit/createvisit',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CreatevisitVisitFormRoute = CreatevisitVisitFormImport.update({
+  id: '/createvisit/VisitForm',
+  path: '/createvisit/VisitForm',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CreateuserCreateuserRoute = CreateuserCreateuserImport.update({
+  id: '/createuser/createuser',
+  path: '/createuser/createuser',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CreateuserUserFormRoute = CreateuserUserFormImport.update({
+  id: '/createuser/UserForm',
+  path: '/createuser/UserForm',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/createuser/UserForm': {
+      id: '/createuser/UserForm'
+      path: '/createuser/UserForm'
+      fullPath: '/createuser/UserForm'
+      preLoaderRoute: typeof CreateuserUserFormImport
+      parentRoute: typeof rootRoute
+    }
+    '/createuser/createuser': {
+      id: '/createuser/createuser'
+      path: '/createuser/createuser'
+      fullPath: '/createuser/createuser'
+      preLoaderRoute: typeof CreateuserCreateuserImport
+      parentRoute: typeof rootRoute
+    }
+    '/createvisit/VisitForm': {
+      id: '/createvisit/VisitForm'
+      path: '/createvisit/VisitForm'
+      fullPath: '/createvisit/VisitForm'
+      preLoaderRoute: typeof CreatevisitVisitFormImport
+      parentRoute: typeof rootRoute
+    }
+    '/createvisit/createvisit': {
+      id: '/createvisit/createvisit'
+      path: '/createvisit/createvisit'
+      fullPath: '/createvisit/createvisit'
+      preLoaderRoute: typeof CreatevisitCreatevisitImport
+      parentRoute: typeof rootRoute
+    }
     '/visitor/$visitorId': {
-      id: '/visitor/$visitorId';
-      path: '/visitor/$visitorId';
-      fullPath: '/visitor/$visitorId';
-      preLoaderRoute: typeof VisitorVisitorIdImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/visitor/$visitorId'
+      path: '/visitor/$visitorId'
+      fullPath: '/visitor/$visitorId'
+      preLoaderRoute: typeof VisitorVisitorIdImport
+      parentRoute: typeof rootRoute
+    }
     '/visitor/': {
-      id: '/visitor/';
-      path: '/visitor';
-      fullPath: '/visitor';
-      preLoaderRoute: typeof VisitorIndexImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/visitor/'
+      path: '/visitor'
+      fullPath: '/visitor'
+      preLoaderRoute: typeof VisitorIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
-  '/visitor/$visitorId': typeof VisitorVisitorIdRoute;
-  '/visitor': typeof VisitorIndexRoute;
+  '/': typeof IndexRoute
+  '/createuser/UserForm': typeof CreateuserUserFormRoute
+  '/createuser/createuser': typeof CreateuserCreateuserRoute
+  '/createvisit/VisitForm': typeof CreatevisitVisitFormRoute
+  '/createvisit/createvisit': typeof CreatevisitCreatevisitRoute
+  '/visitor/$visitorId': typeof VisitorVisitorIdRoute
+  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
-  '/visitor/$visitorId': typeof VisitorVisitorIdRoute;
-  '/visitor': typeof VisitorIndexRoute;
+  '/': typeof IndexRoute
+  '/createuser/UserForm': typeof CreateuserUserFormRoute
+  '/createuser/createuser': typeof CreateuserCreateuserRoute
+  '/createvisit/VisitForm': typeof CreatevisitVisitFormRoute
+  '/createvisit/createvisit': typeof CreatevisitCreatevisitRoute
+  '/visitor/$visitorId': typeof VisitorVisitorIdRoute
+  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/': typeof IndexRoute;
-  '/visitor/$visitorId': typeof VisitorVisitorIdRoute;
-  '/visitor/': typeof VisitorIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/createuser/UserForm': typeof CreateuserUserFormRoute
+  '/createuser/createuser': typeof CreateuserCreateuserRoute
+  '/createvisit/VisitForm': typeof CreatevisitVisitFormRoute
+  '/createvisit/createvisit': typeof CreatevisitCreatevisitRoute
+  '/visitor/$visitorId': typeof VisitorVisitorIdRoute
+  '/visitor/': typeof VisitorIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/' | '/visitor/$visitorId' | '/visitor';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/visitor/$visitorId' | '/visitor';
-  id: '__root__' | '/' | '/visitor/$visitorId' | '/visitor/';
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/createuser/UserForm'
+    | '/createuser/createuser'
+    | '/createvisit/VisitForm'
+    | '/createvisit/createvisit'
+    | '/visitor/$visitorId'
+    | '/visitor'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/createuser/UserForm'
+    | '/createuser/createuser'
+    | '/createvisit/VisitForm'
+    | '/createvisit/createvisit'
+    | '/visitor/$visitorId'
+    | '/visitor'
+  id:
+    | '__root__'
+    | '/'
+    | '/createuser/UserForm'
+    | '/createuser/createuser'
+    | '/createvisit/VisitForm'
+    | '/createvisit/createvisit'
+    | '/visitor/$visitorId'
+    | '/visitor/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  VisitorVisitorIdRoute: typeof VisitorVisitorIdRoute;
-  VisitorIndexRoute: typeof VisitorIndexRoute;
+  IndexRoute: typeof IndexRoute
+  CreateuserUserFormRoute: typeof CreateuserUserFormRoute
+  CreateuserCreateuserRoute: typeof CreateuserCreateuserRoute
+  CreatevisitVisitFormRoute: typeof CreatevisitVisitFormRoute
+  CreatevisitCreatevisitRoute: typeof CreatevisitCreatevisitRoute
+  VisitorVisitorIdRoute: typeof VisitorVisitorIdRoute
+  VisitorIndexRoute: typeof VisitorIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CreateuserUserFormRoute: CreateuserUserFormRoute,
+  CreateuserCreateuserRoute: CreateuserCreateuserRoute,
+  CreatevisitVisitFormRoute: CreatevisitVisitFormRoute,
+  CreatevisitCreatevisitRoute: CreatevisitCreatevisitRoute,
   VisitorVisitorIdRoute: VisitorVisitorIdRoute,
   VisitorIndexRoute: VisitorIndexRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -116,12 +214,28 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/createuser/UserForm",
+        "/createuser/createuser",
+        "/createvisit/VisitForm",
+        "/createvisit/createvisit",
         "/visitor/$visitorId",
         "/visitor/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/createuser/UserForm": {
+      "filePath": "createuser/UserForm.tsx"
+    },
+    "/createuser/createuser": {
+      "filePath": "createuser/createuser.tsx"
+    },
+    "/createvisit/VisitForm": {
+      "filePath": "createvisit/VisitForm.tsx"
+    },
+    "/createvisit/createvisit": {
+      "filePath": "createvisit/createvisit.tsx"
     },
     "/visitor/$visitorId": {
       "filePath": "visitor/$visitorId.tsx"
