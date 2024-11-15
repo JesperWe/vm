@@ -1,7 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
-import ChatSection from '../../../src/components/ChatSection'
+import { createFileRoute } from '@tanstack/react-router';
+import ChatSection from '../../../src/components/ChatSection';
 import { Message } from '../../../src/types/chatTypes';
-
 
 const mockChatData: Message[] = [
   {
@@ -78,12 +77,14 @@ const mockChatData: Message[] = [
 
 export const Route = createFileRoute('/visitor/$visitorId')({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-    const { visitorId } = Route.useParams()
-  return     <>
-  <div>Visitor ID: {visitorId}</div>
-  <ChatSection messages={mockChatData} />
-</>
+  const { visitorId } = Route.useParams();
+  return (
+    <>
+      <div>Visitor ID: {visitorId}</div>
+      <ChatSection messages={mockChatData} />
+    </>
+  );
 }
