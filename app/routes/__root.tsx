@@ -3,6 +3,8 @@ import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-rout
 import { Meta, Scripts } from '@tanstack/start';
 import type { ReactNode } from 'react';
 import '@mantine/core/styles.css';
+import { ApolloClient, InMemoryCache } from '@apollo/client/core/core.cjs';
+import { ApolloProvider } from '@apollo/client/react';
 
 export const Route = createRootRoute({
   meta: () => [
@@ -21,10 +23,17 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const client = new ApolloClient({
+    uri: 'http://64.226.112.55:8080/v1/graphql',
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <RootDocument>
-      <Outlet />
-    </RootDocument>
+    <ApolloProvider client={client}>
+      <RootDocument>
+        <Outlet />
+      </RootDocument>
+    </ApolloProvider>
   );
 }
 
