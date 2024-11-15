@@ -1,6 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router';
 import ChatSection from '../../components/ChatSection';
 import { Message } from '../../types/chatTypes';
+import { gql, useQuery } from 'urql';
+
+const messagesQuery = gql`
+  query Chat_messages {
+    chat_messages {
+      from_user_id
+      id
+      message
+      visit_id
+    }
+  }
+`;
 
 const mockChatData: Message[] = [
   {
@@ -81,6 +93,12 @@ export const Route = createFileRoute('/visitor/$visitorId')({
 
 function RouteComponent() {
   const { visitorId } = Route.useParams();
+  const [result] = useQuery({
+    query: messagesQuery,
+  });
+  const { data, fetching, error } = result;
+  console.log(data);
+
   return (
     <>
       <div>Visitor ID: {visitorId}</div>
