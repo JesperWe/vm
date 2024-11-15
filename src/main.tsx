@@ -12,7 +12,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";
-import Form from "../components/Form";
+import Form from "./components/Form";
 import { ApolloClient, ApolloProvider, gql, InMemoryCache, useQuery } from "@apollo/client";
 
 const client = new ApolloClient({
