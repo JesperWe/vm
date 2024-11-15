@@ -13,6 +13,12 @@ import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";
 import Form from "../components/Form";
+import { ApolloClient, ApolloProvider, gql, InMemoryCache, useQuery } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "http://64.226.112.55:8080/v1/graphql",
+  cache: new InMemoryCache(),
+})
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -74,6 +80,16 @@ const visitorInvitedRoute = createRoute({
 })
 
 function VisitorInvitedComponent() {
+  const { data } = useQuery(gql`query Chat_messages {
+    chat_messages {
+        from_user_id
+        id
+        message
+        visit_id
+    }
+}
+`)
+  console.log(data)
   const { visitorId } = visitorInvitedRoute.useParams()
   return <div>Visitor ID: {visitorId}</div>
 }
@@ -97,7 +113,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <MantineProvider>
+        <ApolloProvider client={client}>
         <RouterProvider router={router} />
+        </ApolloProvider>
       </MantineProvider>
     </StrictMode>
   );

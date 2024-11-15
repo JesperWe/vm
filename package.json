@@ -22,6 +22,7 @@
     "vite": "^5.4.8"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.10",
     "@mantine/core": "^7.14.0",
     "@mantine/dates": "^7.14.0",
     "@mantine/form": "^7.14.0",
@@ -29,6 +30,7 @@
     "@tanstack/react-router": "^1.81.9",
     "@tanstack/router-devtools": "^1.81.9",
     "dayjs": "^1.11.13",
+    "graphql": "^16.9.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   }
