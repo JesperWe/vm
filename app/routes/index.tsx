@@ -31,16 +31,5 @@ function Home() {
   const router = useRouter();
   const state = Route.useLoaderData();
 
-  return (
-    <button
-      type="button"
-      onClick={() => {
-        updateCount(1).then(() => {
-          router.invalidate();
-        });
-      }}
-    >
-      Add 1 to {state}?
-    </button>
-  );
+  return <h1>Welcome to Eidra vistor management</h1>;
 }
