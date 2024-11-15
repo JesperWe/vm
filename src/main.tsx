@@ -56,13 +56,29 @@ const hostRouter = createRoute({
 
 const visitorRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/visitor",
-  component: function VisitorPage() {
-    return <div className="p-2">Hello from Test!</div>;
-  },
-});
+  path: 'visitor',
+})
 
-const routeTree = rootRoute.addChildren([indexRoute, hostRouter, visitorRoute]);
+const visitorIndexRoute = createRoute({
+  getParentRoute: () => visitorRoute,
+  path: '/',
+})
+
+const visitorInvitedRoute = createRoute({
+  getParentRoute: () => visitorRoute,
+  path: '$visitorId',
+  component: VisitorInvitedComponent,
+})
+
+function VisitorInvitedComponent() {
+  const { visitorId } = visitorInvitedRoute.useParams()
+  return <div>Visitor ID: {visitorId}</div>
+}
+
+const routeTree = rootRoute.addChildren([indexRoute, hostRouter, visitorRoute.addChildren([
+  visitorIndexRoute,
+  visitorInvitedRoute,
+]),]);
 
 const router = createRouter({ routeTree });
 
