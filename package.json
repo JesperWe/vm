@@ -5,22 +5,20 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "dev": "vite --port=3001",
-    "build": "vite build",
-    "serve": "vite preview",
-    "start": "vite"
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
   },
   "devDependencies": {
-    "@tanstack/router-plugin": "^1.81.9",
     "@types/node": "^22.9.0",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
     "postcss": "^8.4.49",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "3.3.3",
-    "vite": "^5.4.8"
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
@@ -28,11 +26,13 @@
     "@mantine/dates": "^7.14.0",
     "@mantine/form": "^7.14.0",
     "@mantine/hooks": "^7.14.0",
-    "@tanstack/react-router": "^1.81.9",
-    "@tanstack/router-devtools": "^1.81.9",
+    "@tanstack/react-router": "^1.81.10",
+    "@tanstack/router-devtools": "^1.81.10",
+    "@tanstack/start": "^1.81.10",
     "dayjs": "^1.11.13",
     "graphql": "^16.9.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vinxi": "^0.4.3"
   }
 }
