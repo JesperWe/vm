@@ -1,3 +1,4 @@
+import { MantineProvider } from '@mantine/core'
 import {
   Outlet,
   ScrollRestoration,
@@ -5,6 +6,7 @@ import {
 } from '@tanstack/react-router'
 import { Meta, Scripts } from '@tanstack/start'
 import type { ReactNode } from 'react'
+import '@mantine/core/styles.css'
 
 export const Route = createRootRoute({
   meta: () => [
@@ -37,7 +39,9 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <Meta />
     </head>
     <body>
+    <MantineProvider>
     {children}
+    </MantineProvider>
     <ScrollRestoration />
     <Scripts />
     </body>

@@ -12,12 +12,26 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as VisitorIndexImport } from './routes/visitor/index'
+import { Route as VisitorVisitorIdImport } from './routes/visitor/$visitorId'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VisitorIndexRoute = VisitorIndexImport.update({
+  id: '/visitor/',
+  path: '/visitor/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VisitorVisitorIdRoute = VisitorVisitorIdImport.update({
+  id: '/visitor/$visitorId',
+  path: '/visitor/$visitorId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +46,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/visitor/$visitorId': {
+      id: '/visitor/$visitorId'
+      path: '/visitor/$visitorId'
+      fullPath: '/visitor/$visitorId'
+      preLoaderRoute: typeof VisitorVisitorIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/visitor/': {
+      id: '/visitor/'
+      path: '/visitor'
+      fullPath: '/visitor'
+      preLoaderRoute: typeof VisitorIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/visitor/$visitorId': typeof VisitorVisitorIdRoute
+  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/visitor/$visitorId': typeof VisitorVisitorIdRoute
+  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/visitor/$visitorId': typeof VisitorVisitorIdRoute
+  '/visitor/': typeof VisitorIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/visitor/$visitorId' | '/visitor'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/visitor/$visitorId' | '/visitor'
+  id: '__root__' | '/' | '/visitor/$visitorId' | '/visitor/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  VisitorVisitorIdRoute: typeof VisitorVisitorIdRoute
+  VisitorIndexRoute: typeof VisitorIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  VisitorVisitorIdRoute: VisitorVisitorIdRoute,
+  VisitorIndexRoute: VisitorIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +115,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/visitor/$visitorId",
+        "/visitor/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/visitor/$visitorId": {
+      "filePath": "visitor/$visitorId.tsx"
+    },
+    "/visitor/": {
+      "filePath": "visitor/index.tsx"
     }
   }
 }
