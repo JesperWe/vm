@@ -1,7 +1,7 @@
 import { Box, Flex, ScrollArea } from '@mantine/core';
-import { Message } from '../types/chatTypes';
 import ChatMessageBox from './ChatMessageBox';
 import { useEffect, useRef } from 'react';
+import { Message } from '../types/chatTypes';
 
 interface ChatMessageSectionProps {
   userId: string;
@@ -29,7 +29,7 @@ export default function ChatMessageSection({
   return (
     <ScrollArea h={'500'} viewportRef={viewport}>
       <Flex direction={'column'} gap={20} bg={'gray'} p={15}>
-        {messages.map((message) => (
+        {messages?.map((message) => (
           <Box
             style={{
               width: '40%',

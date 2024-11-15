@@ -92,7 +92,6 @@ export const Route = createFileRoute('/visitor/$visitorId')({
 });
 
 function RouteComponent() {
-  const { visitorId } = Route.useParams();
   const [result] = useQuery({
     query: messagesQuery,
   });
@@ -100,9 +99,6 @@ function RouteComponent() {
   console.log(data);
 
   return (
-    <>
-      <div>Visitor ID: {visitorId}</div>
       <ChatSection messages={mockChatData} />
-    </>
   );
 }
