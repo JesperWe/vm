@@ -16,12 +16,12 @@ const rootRoute = createRootRoute({
       <div className="p-2 flex gap-2">
         <Link to="/" className="[&.active]:font-bold">
           Home
-        </Link>{' '}
-        <Link to="/about" className="[&.active]:font-bold">
-          About
         </Link>
-        <Link to="/test" className="[&.active]:font-bold">
-          Test
+        <Link to="/host" className="[&.active]:font-bold">
+          Host
+        </Link>
+        <Link to="/visitor" className="[&.active]:font-bold">
+          Visitor
         </Link>
       </div>
       <hr />
@@ -43,23 +43,23 @@ const indexRoute = createRoute({
   },
 })
 
-const aboutRoute = createRoute({
+const hostRouter = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/about',
-  component: function About() {
-    return <div className="p-2">Hello from About!</div>
+  path: '/host',
+  component: function HostPage() {
+    return <div className="p-2">Hello from Host!</div>
   },
 })
 
-const testRoute = createRoute({
+const visitorRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/test',
-  component: function Test() {
+  path: '/visitor',
+  component: function VisitorPage() {
     return <div className="p-2">Hello from Test!</div>
   },
 })
 
-const routeTree = rootRoute.addChildren([indexRoute, aboutRoute, testRoute])
+const routeTree = rootRoute.addChildren([indexRoute, hostRouter, visitorRoute])
 
 const router = createRouter({ routeTree })
 
