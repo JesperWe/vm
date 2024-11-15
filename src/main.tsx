@@ -20,6 +20,81 @@ import {
   InMemoryCache,
   useQuery,
 } from '@apollo/client';
+import { Message } from './types/chatTypes';
+import ChatSection from './components/ChatSection';
+
+const mockChatData: Message[] = [
+  {
+    from_user_id: '1',
+    id: 1,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '1',
+    id: 2,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '2',
+    id: 3,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '2',
+    id: 4,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '1',
+    id: 5,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '1',
+    id: 6,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '2',
+    id: 7,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '1',
+    id: 8,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '1',
+    id: 9,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+  {
+    from_user_id: '2',
+    id: 10,
+    message:
+      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    visit_id: '1',
+  },
+];
 
 const client = new ApolloClient({
   uri: 'http://64.226.112.55:8080/v1/graphql',
@@ -101,7 +176,12 @@ function VisitorInvitedComponent() {
   `);
   console.log(data);
   const { visitorId } = visitorInvitedRoute.useParams();
-  return <div>Visitor ID: {visitorId}</div>;
+  return (
+    <>
+      <div>Visitor ID: {visitorId}</div>
+      <ChatSection messages={mockChatData} />
+    </>
+  );
 }
 
 const routeTree = rootRoute.addChildren([
