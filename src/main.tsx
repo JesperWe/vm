@@ -12,6 +12,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";
+import Form from "../components/Form";
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -50,7 +51,9 @@ const hostRouter = createRoute({
   getParentRoute: () => rootRoute,
   path: "/host",
   component: function HostPage() {
-    return <div className="p-2">Hello from Host!</div>;
+    return <div className="p-2">Hello from Host!
+    <Form/>
+    </div>;
   },
 });
 

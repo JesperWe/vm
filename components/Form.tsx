@@ -1,62 +1,61 @@
-import React, { useState } from 'react';
+import { Button, Checkbox, Group, TextInput } from '@mantine/core';
+import { DateInput } from '@mantine/dates';
+import { useForm } from '@mantine/form';
 
-const Form = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    date: '',
-    room: ''
+function Form() {
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+      name: '',
+      email: '',
+      room: '',
+      date: '',
+      termsOfService: false,
+    },
+
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      name: (value) => (value.trim().length > 0 ? null : 'Name is required'),
+      room: (value) => (value.trim().length > 0 ? null : 'Room is required'),
+      date: (value) => (value ? null : 'Date is required'),
+    },
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-  };
-
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="E-mail"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="date"
-          name="date"
-          placeholder="Date / Time"
-          value={formData.date}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="room"
-          placeholder="Room"
-          value={formData.room}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <TextInput
+        withAsterisk
+        label="Name"
+        placeholder="Your name"
+        {...form.getInputProps('name')}
+      />
+
+      <TextInput
+        withAsterisk
+        label="Email"
+        placeholder="your@email.com"
+        {...form.getInputProps('email')}
+      />
+
+      <TextInput
+        withAsterisk
+        label="Room"
+        placeholder="Room number"
+        {...form.getInputProps('room')}
+      />
+
+      <DateInput
+        withAsterisk
+        label="Date"
+        placeholder="Select date"
+        {...form.getInputProps('date')}
+      />
+
+      <Group mt="md">
+        <Button type="submit">Submit</Button>
+      </Group>
+    </form>
   );
-};
+}
 
 export default Form;
