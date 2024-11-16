@@ -10,10 +10,10 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
-import { Route as IndexImport } from './routes/index'
-import { Route as VisitorIndexImport } from './routes/visitor/index'
+import { Route as rootRoute } from './routes/__root';
+import { Route as LoginImport } from './routes/login';
+import { Route as IndexImport } from './routes/index';
+import { Route as VisitorIndexImport } from './routes/visitor/index';
 
 // Create/Update Routes
 
@@ -21,93 +21,93 @@ const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const VisitorIndexRoute = VisitorIndexImport.update({
   id: '/visitor/',
   path: '/visitor/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/login';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof LoginImport;
+      parentRoute: typeof rootRoute;
+    };
     '/visitor/': {
-      id: '/visitor/'
-      path: '/visitor'
-      fullPath: '/visitor'
-      preLoaderRoute: typeof VisitorIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/visitor/';
+      path: '/visitor';
+      fullPath: '/visitor';
+      preLoaderRoute: typeof VisitorIndexImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/visitor': typeof VisitorIndexRoute
+  '/': typeof IndexRoute;
+  '/login': typeof LoginRoute;
+  '/visitor': typeof VisitorIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/visitor': typeof VisitorIndexRoute
+  '/': typeof IndexRoute;
+  '/login': typeof LoginRoute;
+  '/visitor': typeof VisitorIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/visitor/': typeof VisitorIndexRoute
+  __root__: typeof rootRoute;
+  '/': typeof IndexRoute;
+  '/login': typeof LoginRoute;
+  '/visitor/': typeof VisitorIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/visitor'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/visitor'
-  id: '__root__' | '/' | '/login' | '/visitor/'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: '/' | '/login' | '/visitor';
+  fileRoutesByTo: FileRoutesByTo;
+  to: '/' | '/login' | '/visitor';
+  id: '__root__' | '/' | '/login' | '/visitor/';
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  LoginRoute: typeof LoginRoute
-  VisitorIndexRoute: typeof VisitorIndexRoute
+  IndexRoute: typeof IndexRoute;
+  LoginRoute: typeof LoginRoute;
+  VisitorIndexRoute: typeof VisitorIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   VisitorIndexRoute: VisitorIndexRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {

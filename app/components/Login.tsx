@@ -19,7 +19,7 @@ import { Route } from '../routes/__root';
 
 export function Login(props: PaperProps) {
   const [type, toggle] = useToggle(['login', 'register']);
-  const navigate = useNavigate({ from: Route.fullPath })
+  const navigate = useNavigate({ from: Route.fullPath });
   const form = useForm({
     initialValues: {
       email: '',
@@ -42,13 +42,15 @@ export function Login(props: PaperProps) {
           Please log in
         </Text>
 
-        <form onSubmit={form.onSubmit((values) => {
-          console.log(values)
-          navigate({
-            to: "/",
-            search: (prev) => ({ userId: values.email, visitId: "" }),
-          })
-        })}>
+        <form
+          onSubmit={form.onSubmit((values) => {
+            console.log(values);
+            navigate({
+              to: '/',
+              search: (prev) => ({ userId: values.email, visitId: '' }),
+            });
+          })}
+        >
           <Stack>
             {type === 'register' && (
               <TextInput
