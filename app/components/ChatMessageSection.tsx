@@ -27,8 +27,8 @@ export default function ChatMessageSection({
   }, [messages]);
 
   return (
-    <ScrollArea h={'500'} viewportRef={viewport}>
-      <Flex direction={'column'} gap={20} bg={'gray'} p={15}>
+    <ScrollArea viewportRef={viewport} style={{ height: '100%' }}>
+      <Flex direction={'column'} gap={16} px={24} py={12}>
         {messages?.map((message) => (
           <Box
             key={message.id}
@@ -39,7 +39,7 @@ export default function ChatMessageSection({
           >
             <ChatMessageBox
               message={message.message}
-              color={userId === message.from_user_id ? 'teal' : 'white'}
+              color={userId === message.from_user_id ? '#1C923D' : 'white'}
             />
           </Box>
         ))}

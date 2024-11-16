@@ -89,27 +89,44 @@ export default function ChatSection({ visitId, userId }: ChatSectionProps) {
   if (!data) return <Box>Loading...</Box>;
 
   return (
-    <Paper shadow="sm" maw={1080} mx={'auto'} radius="md" style={{ overflow: 'hidden' }}>
-      <Text p={15} bg={'blue'}>
-        {'Your messages'}
-      </Text>
+    <Flex direction={'column'} maw={1080} mx={'auto'} style={{ height: '100vh' }}>
       <ChatMessageSection messages={data} userId={userId} />
-      <Flex gap={15} p={15} bg={'cyan'}>
-        <TextInput
-          value={message}
-          onChange={(event) => setMessage(event.currentTarget.value)}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' && message) {
-              sendMessage(message);
-            }
-          }}
-          placeholder="Send a message here!"
-          style={{ flex: 1 }}
-        />
-        <Button disabled={!message} onClick={() => sendMessage(message)}>
-          {'Send'}
-        </Button>
+      <Flex px={24} py={20} gap={10} direction={'column'}>
+        <Flex gap={8} wrap={'wrap'}>
+          <Button
+            variant="white"
+            color="black"
+            style={{ fontWeight: 400, fontSize: 12 }}
+            onClick={() => sendMessage("I'm here!")}
+          >
+            {"I'm here!"}
+          </Button>
+          <Button
+            variant="white"
+            color="black"
+            style={{ fontWeight: 400, fontSize: 12 }}
+            onClick={() => sendMessage("I'll meet you by the meeting room")}
+          >
+            {"I'll meet you by the meeting room"}
+          </Button>
+        </Flex>
+        <Flex gap={15} style={{ backgroundColor: '#f0e9e3' }}>
+          <TextInput
+            value={message}
+            onChange={(event) => setMessage(event.currentTarget.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && message) {
+                sendMessage(message);
+              }
+            }}
+            placeholder="Write message..."
+            style={{ flex: 1 }}
+          />
+          <Button disabled={!message} onClick={() => sendMessage(message)} color="black">
+            {'Send'}
+          </Button>
+        </Flex>
       </Flex>
-    </Paper>
+    </Flex>
   );
 }
