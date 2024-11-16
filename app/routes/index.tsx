@@ -59,9 +59,9 @@ function Home() {
   const visitsMap = fetching
     ? []
     : data.visit.map((v) => ({
-      label: v?.visitor.name + ' → ' + v.host?.name,
-      value: v.id,
-    }));
+        label: v?.visitor.name + ' → ' + v.host?.name,
+        value: v.id,
+      }));
 
   console.log({ value, visitsMap, fetching });
 
@@ -89,9 +89,10 @@ function Home() {
           </Button>
 
           <Select
-            label={"Select a visit to view"}
+            label={'Select a visit to view'}
             placeholder="Visit..."
-            value={value} onChange={setValue}
+            value={value}
+            onChange={setValue}
             data={visitsMap}
           />
 
@@ -100,7 +101,7 @@ function Home() {
             onClick={() => {
               navigate({
                 to: '/visit',
-                search: (prev) => ({...prev, visitId: value}),
+                search: (prev) => ({ ...prev, visitId: value }),
               });
             }}
           >

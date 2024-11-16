@@ -95,7 +95,10 @@ function VisitForm() {
     }
   };
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)} style={{width:"100%", display:"flex", flexDirection:"column", gap: "12px"}}>
+    <form
+      onSubmit={form.onSubmit(handleSubmit)}
+      style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px' }}
+    >
       <TextInput
         withAsterisk
         label="Host ID"
@@ -133,7 +136,9 @@ function VisitForm() {
       />
 
       <Group>
-        <Button type="submit" color='black'>Recieve a link</Button>
+        <Button type="submit" color="black">
+          Recieve a link
+        </Button>
       </Group>
     </form>
   );
