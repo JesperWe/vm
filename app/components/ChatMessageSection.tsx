@@ -33,7 +33,7 @@ export default function ChatMessageSection({
           <Box
             key={message.id}
             style={{
-              width: '40%',
+              width: '45%',
               alignSelf: userId === message.from_user_id ? 'end' : 'start',
             }}
           >
