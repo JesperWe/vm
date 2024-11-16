@@ -12,7 +12,12 @@ const INSERT_VISIT = gql`
     $during: tstzrange!
   ) {
     insert_visit_one(
-      object: { host_id: $hostId, visitor_email: $email, room_id: $roomId, during: $during }
+      object: {
+        host_id: $hostId
+        visitor_email: $email
+        room_id: $roomId
+        during: $during
+      }
     ) {
       during
       host_id
@@ -56,10 +61,11 @@ function VisitForm() {
   const [insertVisitResult, insertVisit] = useMutation(INSERT_VISIT);
 
   //extracting data for the select
-  const roomOptions = data?.room.map((room: { id: string; name: string }) => ({
-    value: room.id, 
-    label: room.name, 
-  })) || [];
+  const roomOptions =
+    data?.room.map((room: { id: string; name: string }) => ({
+      value: room.id,
+      label: room.name,
+    })) || [];
 
   const handleSubmit = async (values: typeof form.values) => {
     const { startDate, endDate } = values;
@@ -73,8 +79,8 @@ function VisitForm() {
       const response = await insertVisit({
         hostId: values.hostId,
         email: values.email,
-        roomId: values.roomId, 
-        during: `[${startDate.toISOString()}, ${endDate.toISOString()})`, 
+        roomId: values.roomId,
+        during: `[${startDate.toISOString()}, ${endDate.toISOString()})`,
       });
 
       if (response.error) {
@@ -86,7 +92,7 @@ function VisitForm() {
     } catch (err) {
       console.error('Error inserting visit:', err);
     }
-  }
+  };
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <TextInput
@@ -108,7 +114,7 @@ function VisitForm() {
         label="Room"
         placeholder="Select a room"
         data={roomOptions}
-        {...form.getInputProps('roomId')} 
+        {...form.getInputProps('roomId')}
       />
 
       <DateTimePicker

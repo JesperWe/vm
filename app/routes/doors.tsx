@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { Box, Center, Container, Flex } from '@mantine/core'
+import { Box, Center, Container, Flex } from '@mantine/core';
 import { Doors } from '../components/Doors';
 
 export const Route = createFileRoute('/doors')({
   component: DoorsPage,
-})
+});
 
 function DoorsPage() {
   return (
@@ -20,8 +20,8 @@ function DoorsPage() {
         </Flex>
       </Flex>
       <Center h="50vh">
-        <Doors/>
+        <Doors />
       </Center>
     </Container>
-  )
+  );
 }

@@ -7,10 +7,12 @@ import {
   gql,
   subscriptionExchange,
   useMutation,
+  useQuery,
 } from 'urql';
 import { useState } from 'react';
 import { Message } from '../types/chatTypes';
 import { createClient as createWSClient } from 'graphql-ws';
+import ChatRecommendations from './ChatRecommendations';
 
 interface ChatSectionProps {
   userId: string;
@@ -36,6 +38,18 @@ const SEND_MESSAGE = gql`
       id
       message
       visit_id
+    }
+  }
+`;
+
+const GET_VISIT = gql`
+  query Visit_by_pk($visitId: uuid!) {
+    visit_by_pk(id: $visitId) {
+      during
+      host_id
+      id
+      room_id
+      visitor_email
     }
   }
 `;
@@ -69,6 +83,12 @@ export default function ChatSection({ visitId, userId }: ChatSectionProps) {
   }
 
   const [_, sendMessageMutation] = useMutation(SEND_MESSAGE);
+  const [visitResult] = useQuery({
+    query: GET_VISIT,
+    variables: { visitId: visitId },
+  });
+  const { data: visitData, fetching } = visitResult;
+  const isHost = visitData?.visit_by_pk.host_id === userId;
 
   const [data, setData] = useState<Message[] | undefined>([]);
   const [message, setMessage] = useState<string>('');
@@ -86,30 +106,13 @@ export default function ChatSection({ visitId, userId }: ChatSectionProps) {
     result.data?.chat_messages && setData(result.data?.chat_messages);
   });
 
-  if (!data) return <Box>Loading...</Box>;
+  if (!data || fetching) return <Box>Loading...</Box>;
 
   return (
     <Flex direction={'column'} maw={1080} mx={'auto'} style={{ height: '100vh' }}>
       <ChatMessageSection messages={data} userId={userId} />
       <Flex px={24} py={20} gap={10} direction={'column'}>
-        <Flex gap={8} wrap={'wrap'}>
-          <Button
-            variant="white"
-            color="black"
-            style={{ fontWeight: 400, fontSize: 12 }}
-            onClick={() => sendMessage("I'm here!")}
-          >
-            {"I'm here!"}
-          </Button>
-          <Button
-            variant="white"
-            color="black"
-            style={{ fontWeight: 400, fontSize: 12 }}
-            onClick={() => sendMessage("I'll meet you by the meeting room")}
-          >
-            {"I'll meet you by the meeting room"}
-          </Button>
-        </Flex>
+        <ChatRecommendations isHost={isHost} sendMessage={sendMessage} />
         <Flex gap={15} style={{ backgroundColor: '#f0e9e3' }}>
           <TextInput
             value={message}

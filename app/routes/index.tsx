@@ -65,28 +65,34 @@ function Home() {
       </Flex>
       <Center h={200}>
         <Stack>
-          <Button onClick={() => {
-            navigate({
-              to: '/createvisit',
-              search: prev => prev
-            });
-          }}>
+          <Button
+            onClick={() => {
+              navigate({
+                to: '/createvisit',
+                search: (prev) => prev,
+              });
+            }}
+          >
             Create New Visit
           </Button>
-          <Button onClick={() => {
-            navigate({
-              to: '/visitor',
-              search: prev => prev
-            });
-          }}>
+          <Button
+            onClick={() => {
+              navigate({
+                to: '/visitor',
+                search: (prev) => prev,
+              });
+            }}
+          >
             Visitor View
           </Button>
-          <Button onClick={() => {
-            navigate({
-              to: '/doors',
-              search: prev => prev
-            });
-          }}>
+          <Button
+            onClick={() => {
+              navigate({
+                to: '/doors',
+                search: (prev) => prev,
+              });
+            }}
+          >
             Doors
           </Button>
         </Stack>
