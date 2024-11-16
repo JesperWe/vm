@@ -64,7 +64,7 @@ export default function VisitSection({ visitId, userId, during }: VisitSectionPr
       ) : (
         <>
           <>
-            <VisitorSection during={meeting?.during} />
+            <VisitorSection during={meeting?.during} meeting={meeting} />
           </>
         </>
       )}
