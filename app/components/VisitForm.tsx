@@ -3,11 +3,17 @@ import { DateInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { gql, useMutation } from 'urql';
 
-
 //mutation query to insert visit
 export const INSERT_VISIT = gql`
-  mutation InsertVisit($hostId: uuid, $email: String!, $room: String!, $during: tstzrange!) {
-    insert_visit_one(object: { host_id: $hostId, visitor_email: $email, room: $room, during: $during }) {
+  mutation InsertVisit(
+    $hostId: uuid
+    $email: String!
+    $room: String!
+    $during: tstzrange!
+  ) {
+    insert_visit_one(
+      object: { host_id: $hostId, visitor_email: $email, room: $room, during: $during }
+    ) {
       during
       host_id
       id
@@ -28,7 +34,7 @@ function VisitForm() {
       endDate: null as Date | null,
     },
 
-     validate: {
+    validate: {
       hostId: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       room: (value) => (value.length < 1 ? 'Please enter a room.' : null),
@@ -97,9 +103,7 @@ function VisitForm() {
       />
 
       <Group mt="md">
-        <Button type="submit">
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
       </Group>
     </form>
   );

@@ -4,6 +4,7 @@ import { Meta, Scripts } from '@tanstack/start';
 import type { ReactNode } from 'react';
 import { cacheExchange, Client, fetchExchange, Provider } from 'urql';
 import '@mantine/core/styles.css';
+import '../index.css';
 
 export const Route = createRootRoute({
   meta: () => [

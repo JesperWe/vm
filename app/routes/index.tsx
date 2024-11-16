@@ -1,6 +1,11 @@
 // app/routes/index.tsx
 import * as fs from 'node:fs';
-import { createFileRoute, redirect, useNavigate, useRouter } from '@tanstack/react-router';
+import {
+  createFileRoute,
+  redirect,
+  useNavigate,
+  useRouter,
+} from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/start';
 import { Box, Button, Center, Container, Flex, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -60,18 +65,22 @@ function Home() {
       </Flex>
       <Center h={200}>
         <Stack>
-          <Button onClick={() => {
-            navigate({
-              to: '/createvisit',
-            });
-          }}>
+          <Button
+            onClick={() => {
+              navigate({
+                to: '/createvisit',
+              });
+            }}
+          >
             Create New Visit
           </Button>
-          <Button onClick={() => {
-            navigate({
-              to: '/visitor',
-            });
-          }}>
+          <Button
+            onClick={() => {
+              navigate({
+                to: '/visitor',
+              });
+            }}
+          >
             Visitor View
           </Button>
         </Stack>

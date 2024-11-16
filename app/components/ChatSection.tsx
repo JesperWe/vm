@@ -104,7 +104,7 @@ export default function ChatSection({ visitId, userId }: ChatSectionProps) {
             }
           }}
           placeholder="Send a message here!"
-          style={{ width: '95%' }}
+          style={{ flex: 1 }}
         />
         <Button disabled={!message} onClick={() => sendMessage(message)}>
           {'Send'}
