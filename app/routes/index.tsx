@@ -1,8 +1,8 @@
 // app/routes/index.tsx
 import * as fs from 'node:fs';
-import { createFileRoute, redirect, useRouter } from '@tanstack/react-router';
+import { createFileRoute, redirect, useNavigate, useRouter } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/start';
-import { Box, Flex } from '@mantine/core';
+import { Box, Button, Center, Container, Flex, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 const filePath = 'count.txt';
@@ -46,15 +46,36 @@ function Home() {
   const router = useRouter();
   const state = Route.useLoaderData();
   const [opened, { toggle }] = useDisclosure();
+  const navigate = useNavigate({ from: Route.fullPath });
 
   return (
-    <Flex bg="#F0E9E3" align="center">
-      <Box m={12}>
-        <img src="/eidra-logo.svg" height={30} />
-      </Box>
-      <Flex justify="center" w="100%">
-        <h2>Visitor Management</h2>
+    <>
+      <Flex bg="#F0E9E3" align="center">
+        <Box m={12}>
+          <img src="/eidra-logo.svg" height={30} />
+        </Box>
+        <Flex justify="center" w="100%">
+          <h2>Visitor Management</h2>
+        </Flex>
       </Flex>
-    </Flex>
+      <Center h={200}>
+        <Stack>
+          <Button onClick={() => {
+            navigate({
+              to: '/createvisit',
+            });
+          }}>
+            Create New Visit
+          </Button>
+          <Button onClick={() => {
+            navigate({
+              to: '/visitor',
+            });
+          }}>
+            Visitor View
+          </Button>
+        </Stack>
+      </Center>
+    </>
   );
 }
