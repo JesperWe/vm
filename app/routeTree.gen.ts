@@ -14,7 +14,6 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as DoorsImport } from './routes/doors'
 import { Route as IndexImport } from './routes/index'
-import { Route as VisitorIndexImport } from './routes/visitor/index'
 import { Route as VisitIndexImport } from './routes/visit/index'
 import { Route as CreatevisitIndexImport } from './routes/createvisit/index'
 import { Route as ChatIndexImport } from './routes/chat/index'
@@ -36,12 +35,6 @@ const DoorsRoute = DoorsImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const VisitorIndexRoute = VisitorIndexImport.update({
-  id: '/visitor/',
-  path: '/visitor/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -109,13 +102,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VisitIndexImport
       parentRoute: typeof rootRoute
     }
-    '/visitor/': {
-      id: '/visitor/'
-      path: '/visitor'
-      fullPath: '/visitor'
-      preLoaderRoute: typeof VisitorIndexImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -128,7 +114,6 @@ export interface FileRoutesByFullPath {
   '/chat': typeof ChatIndexRoute
   '/createvisit': typeof CreatevisitIndexRoute
   '/visit': typeof VisitIndexRoute
-  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -138,7 +123,6 @@ export interface FileRoutesByTo {
   '/chat': typeof ChatIndexRoute
   '/createvisit': typeof CreatevisitIndexRoute
   '/visit': typeof VisitIndexRoute
-  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesById {
@@ -149,28 +133,13 @@ export interface FileRoutesById {
   '/chat/': typeof ChatIndexRoute
   '/createvisit/': typeof CreatevisitIndexRoute
   '/visit/': typeof VisitIndexRoute
-  '/visitor/': typeof VisitorIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/doors'
-    | '/login'
-    | '/chat'
-    | '/createvisit'
-    | '/visit'
-    | '/visitor'
+  fullPaths: '/' | '/doors' | '/login' | '/chat' | '/createvisit' | '/visit'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/doors'
-    | '/login'
-    | '/chat'
-    | '/createvisit'
-    | '/visit'
-    | '/visitor'
+  to: '/' | '/doors' | '/login' | '/chat' | '/createvisit' | '/visit'
   id:
     | '__root__'
     | '/'
@@ -179,7 +148,6 @@ export interface FileRouteTypes {
     | '/chat/'
     | '/createvisit/'
     | '/visit/'
-    | '/visitor/'
   fileRoutesById: FileRoutesById
 }
 
@@ -190,7 +158,6 @@ export interface RootRouteChildren {
   ChatIndexRoute: typeof ChatIndexRoute
   CreatevisitIndexRoute: typeof CreatevisitIndexRoute
   VisitIndexRoute: typeof VisitIndexRoute
-  VisitorIndexRoute: typeof VisitorIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -200,7 +167,6 @@ const rootRouteChildren: RootRouteChildren = {
   ChatIndexRoute: ChatIndexRoute,
   CreatevisitIndexRoute: CreatevisitIndexRoute,
   VisitIndexRoute: VisitIndexRoute,
-  VisitorIndexRoute: VisitorIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -218,8 +184,7 @@ export const routeTree = rootRoute
         "/login",
         "/chat/",
         "/createvisit/",
-        "/visit/",
-        "/visitor/"
+        "/visit/"
       ]
     },
     "/": {
@@ -239,9 +204,6 @@ export const routeTree = rootRoute
     },
     "/visit/": {
       "filePath": "visit/index.tsx"
-    },
-    "/visitor/": {
-      "filePath": "visitor/index.tsx"
     }
   }
 }
