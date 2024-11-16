@@ -2,6 +2,7 @@ import { Button, Group, Select, TextInput } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { gql, useMutation, useQuery } from 'urql';
+import '@mantine/dates/styles.css';
 
 // Mutation query to insert visit
 const INSERT_VISIT = gql`
