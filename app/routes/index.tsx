@@ -1,33 +1,33 @@
 // app/routes/index.tsx
-import * as fs from 'node:fs';
 import {
   createFileRoute,
   redirect,
   useNavigate,
   useRouter,
 } from '@tanstack/react-router';
-import { createServerFn } from '@tanstack/start';
-import { Box, Button, Center, Container, Flex, Stack } from '@mantine/core';
+import { Box, Button, Center, Flex, Select, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { gql, useQuery } from 'urql';
+import { useState } from 'react';
 
-const filePath = 'count.txt';
-
-async function readCount() {
-  return parseInt(await fs.promises.readFile(filePath, 'utf-8').catch(() => '0'));
-}
-
-const getCount = createServerFn({
-  method: 'GET',
-}).handler(() => {
-  return readCount();
-});
-
-const updateCount = createServerFn()
-  .validator((d: number) => d)
-  .handler(async ({ data }) => {
-    const count = await readCount();
-    await fs.promises.writeFile(filePath, `${count + data}`);
-  });
+const VisitsQuery = gql`
+  query {
+    visit {
+      id
+      during
+      host {
+        id
+        email
+        name
+      }
+      visitor {
+        email
+        id
+        name
+      }
+    }
+  }
+`;
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -53,6 +53,18 @@ function Home() {
   const [opened, { toggle }] = useDisclosure();
   const navigate = useNavigate({ from: Route.fullPath });
 
+  const [result] = useQuery({ query: VisitsQuery });
+  const { data, fetching } = result;
+  const [value, setValue] = useState<string | null>('');
+  const visitsMap = fetching
+    ? []
+    : data.visit.map((v) => ({
+      label: v?.visitor.name + ' → ' + v.host?.name,
+      value: v.id,
+    }));
+
+  console.log({ value, visitsMap, fetching });
+
   return (
     <>
       <Flex bg="#F0E9E3" align="center">
@@ -75,16 +87,26 @@ function Home() {
           >
             Create New Visit
           </Button>
+
+          <Select
+            label={"Select a visit to view"}
+            placeholder="Visit..."
+            value={value} onChange={setValue}
+            data={visitsMap}
+          />
+
           <Button
+            disabled={!value}
             onClick={() => {
               navigate({
-                to: '/visitor',
-                search: (prev) => prev,
+                to: '/visit',
+                search: (prev) => ({...prev, visitId: value}),
               });
             }}
           >
-            Visitor View
+            Visit
           </Button>
+
           <Button
             onClick={() => {
               navigate({

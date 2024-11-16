@@ -2,6 +2,7 @@ import { Button, Group, Select, TextInput } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { gql, useMutation, useQuery } from 'urql';
+import '@mantine/dates/styles.css';
 
 // Mutation query to insert visit
 const INSERT_VISIT = gql`
@@ -94,7 +95,7 @@ function VisitForm() {
     }
   };
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
+    <form onSubmit={form.onSubmit(handleSubmit)} style={{width:"100%", display:"flex", flexDirection:"column", gap: "12px"}}>
       <TextInput
         withAsterisk
         label="Host ID"
@@ -111,7 +112,7 @@ function VisitForm() {
 
       <Select
         withAsterisk
-        label="Room"
+        label="Meeting Room"
         placeholder="Select a room"
         data={roomOptions}
         {...form.getInputProps('roomId')}
@@ -131,8 +132,8 @@ function VisitForm() {
         {...form.getInputProps('endDate')}
       />
 
-      <Group mt="md">
-        <Button type="submit">Submit</Button>
+      <Group>
+        <Button type="submit" color='black'>Recieve a link</Button>
       </Group>
     </form>
   );
