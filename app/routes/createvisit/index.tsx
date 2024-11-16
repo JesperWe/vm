@@ -1,13 +1,24 @@
 import * as React from 'react';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useSearch } from '@tanstack/react-router';
 import VisitForm from '../../components/VisitForm';
 import { Center, Container, Flex, Title } from '@mantine/core';
 
+
+interface state{
+  userId: string;
+}
 export const Route = createFileRoute('/createvisit/')({
   component: RouteComponent,
+  validateSearch: (search: Record<string, unknown>): state => {
+    return {
+      userId: search.userId as string,
+    };
+  },
 });
 
 function RouteComponent() {
+const { userId } = Route.useSearch()
+
   return (
     <Flex direction={'column'} justify={'center'} align={'center'} w={'100%'}>
       <Container px={"24"} pt={"108"}>
@@ -20,7 +31,7 @@ function RouteComponent() {
           </Title>
         </Flex>
         <Center w={'100%'}>
-          <VisitForm />
+          <VisitForm hostId={userId}/>
         </Center>
       </Container>
     </Flex>

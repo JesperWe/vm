@@ -3,6 +3,7 @@ import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { gql, useMutation, useQuery } from 'urql';
 import '@mantine/dates/styles.css';
+import { useSearch } from '@tanstack/react-router';
 
 // Mutation query to insert visit
 const INSERT_VISIT = gql`
@@ -39,11 +40,17 @@ const GET_ROOMS = gql`
   }
 `;
 
-function VisitForm() {
+interface Props{
+  hostId: string;
+}
+
+function VisitForm({hostId}: Props) {
+
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      hostId: '',
+      hostId: hostId || '',
       email: '',
       roomId: '',
       startDate: null as Date | null,
