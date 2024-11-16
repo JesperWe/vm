@@ -31,6 +31,7 @@ export default function ChatMessageSection({
       <Flex direction={'column'} gap={20} bg={'gray'} p={15}>
         {messages?.map((message) => (
           <Box
+            key={message.id}
             style={{
               width: '40%',
               alignSelf: userId === message.from_user_id ? 'end' : 'start',
