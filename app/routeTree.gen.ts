@@ -10,12 +10,12 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as LoginImport } from './routes/login';
-import { Route as DoorsImport } from './routes/doors';
-import { Route as IndexImport } from './routes/index';
-import { Route as VisitorIndexImport } from './routes/visitor/index';
-import { Route as CreatevisitIndexImport } from './routes/createvisit/index';
+import { Route as rootRoute } from './routes/__root'
+import { Route as LoginImport } from './routes/login'
+import { Route as DoorsImport } from './routes/doors'
+import { Route as IndexImport } from './routes/index'
+import { Route as VisitorIndexImport } from './routes/visitor/index'
+import { Route as CreatevisitIndexImport } from './routes/createvisit/index'
 
 // Create/Update Routes
 
@@ -23,116 +23,116 @@ const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const DoorsRoute = DoorsImport.update({
   id: '/doors',
   path: '/doors',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const VisitorIndexRoute = VisitorIndexImport.update({
   id: '/visitor/',
   path: '/visitor/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const CreatevisitIndexRoute = CreatevisitIndexImport.update({
   id: '/createvisit/',
   path: '/createvisit/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
     '/doors': {
-      id: '/doors';
-      path: '/doors';
-      fullPath: '/doors';
-      preLoaderRoute: typeof DoorsImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/doors'
+      path: '/doors'
+      fullPath: '/doors'
+      preLoaderRoute: typeof DoorsImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
-      id: '/login';
-      path: '/login';
-      fullPath: '/login';
-      preLoaderRoute: typeof LoginImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
     '/createvisit/': {
-      id: '/createvisit/';
-      path: '/createvisit';
-      fullPath: '/createvisit';
-      preLoaderRoute: typeof CreatevisitIndexImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/createvisit/'
+      path: '/createvisit'
+      fullPath: '/createvisit'
+      preLoaderRoute: typeof CreatevisitIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/visitor/': {
-      id: '/visitor/';
-      path: '/visitor';
-      fullPath: '/visitor';
-      preLoaderRoute: typeof VisitorIndexImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/visitor/'
+      path: '/visitor'
+      fullPath: '/visitor'
+      preLoaderRoute: typeof VisitorIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
-  '/doors': typeof DoorsRoute;
-  '/login': typeof LoginRoute;
-  '/createvisit': typeof CreatevisitIndexRoute;
-  '/visitor': typeof VisitorIndexRoute;
+  '/': typeof IndexRoute
+  '/doors': typeof DoorsRoute
+  '/login': typeof LoginRoute
+  '/createvisit': typeof CreatevisitIndexRoute
+  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
-  '/doors': typeof DoorsRoute;
-  '/login': typeof LoginRoute;
-  '/createvisit': typeof CreatevisitIndexRoute;
-  '/visitor': typeof VisitorIndexRoute;
+  '/': typeof IndexRoute
+  '/doors': typeof DoorsRoute
+  '/login': typeof LoginRoute
+  '/createvisit': typeof CreatevisitIndexRoute
+  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/': typeof IndexRoute;
-  '/doors': typeof DoorsRoute;
-  '/login': typeof LoginRoute;
-  '/createvisit/': typeof CreatevisitIndexRoute;
-  '/visitor/': typeof VisitorIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/doors': typeof DoorsRoute
+  '/login': typeof LoginRoute
+  '/createvisit/': typeof CreatevisitIndexRoute
+  '/visitor/': typeof VisitorIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/' | '/doors' | '/login' | '/createvisit' | '/visitor';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/doors' | '/login' | '/createvisit' | '/visitor';
-  id: '__root__' | '/' | '/doors' | '/login' | '/createvisit/' | '/visitor/';
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/doors' | '/login' | '/createvisit' | '/visitor'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/doors' | '/login' | '/createvisit' | '/visitor'
+  id: '__root__' | '/' | '/doors' | '/login' | '/createvisit/' | '/visitor/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  DoorsRoute: typeof DoorsRoute;
-  LoginRoute: typeof LoginRoute;
-  CreatevisitIndexRoute: typeof CreatevisitIndexRoute;
-  VisitorIndexRoute: typeof VisitorIndexRoute;
+  IndexRoute: typeof IndexRoute
+  DoorsRoute: typeof DoorsRoute
+  LoginRoute: typeof LoginRoute
+  CreatevisitIndexRoute: typeof CreatevisitIndexRoute
+  VisitorIndexRoute: typeof VisitorIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -141,11 +141,11 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   CreatevisitIndexRoute: CreatevisitIndexRoute,
   VisitorIndexRoute: VisitorIndexRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
