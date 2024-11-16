@@ -10,10 +10,11 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as IndexImport } from './routes/index';
-import { Route as VisitorIndexImport } from './routes/visitor/index';
-import { Route as VisitorVisitorIdImport } from './routes/visitor/$visitorId';
+import { Route as rootRoute } from './routes/__root'
+import { Route as LoginImport } from './routes/login'
+import { Route as IndexImport } from './routes/index'
+import { Route as VisitorIndexImport } from './routes/visitor/index'
+import { Route as CreatevisitIndexImport } from './routes/createvisit/index'
 
 // Create/Update Routes
 
@@ -21,7 +22,7 @@ const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -33,32 +34,39 @@ const VisitorIndexRoute = VisitorIndexImport.update({
   id: '/visitor/',
   path: '/visitor/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
-const VisitorVisitorIdRoute = VisitorVisitorIdImport.update({
-  id: '/visitor/$visitorId',
-  path: '/visitor/$visitorId',
+const CreatevisitIndexRoute = CreatevisitIndexImport.update({
+  id: '/createvisit/',
+  path: '/createvisit/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/visitor/$visitorId': {
-      id: '/visitor/$visitorId';
-      path: '/visitor/$visitorId';
-      fullPath: '/visitor/$visitorId';
-      preLoaderRoute: typeof VisitorVisitorIdImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/createvisit/': {
+      id: '/createvisit/'
+      path: '/createvisit'
+      fullPath: '/createvisit'
+      preLoaderRoute: typeof CreatevisitIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/visitor/': {
       id: '/visitor/'
       path: '/visitor'
@@ -72,42 +80,47 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
-  '/visitor/$visitorId': typeof VisitorVisitorIdRoute;
-  '/visitor': typeof VisitorIndexRoute;
+  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/createvisit': typeof CreatevisitIndexRoute
+  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
-  '/visitor/$visitorId': typeof VisitorVisitorIdRoute;
-  '/visitor': typeof VisitorIndexRoute;
+  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/createvisit': typeof CreatevisitIndexRoute
+  '/visitor': typeof VisitorIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/': typeof IndexRoute;
-  '/visitor/$visitorId': typeof VisitorVisitorIdRoute;
-  '/visitor/': typeof VisitorIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/createvisit/': typeof CreatevisitIndexRoute
+  '/visitor/': typeof VisitorIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/' | '/visitor/$visitorId' | '/visitor';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/visitor/$visitorId' | '/visitor';
-  id: '__root__' | '/' | '/visitor/$visitorId' | '/visitor/';
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/login' | '/createvisit' | '/visitor'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/login' | '/createvisit' | '/visitor'
+  id: '__root__' | '/' | '/login' | '/createvisit/' | '/visitor/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  VisitorVisitorIdRoute: typeof VisitorVisitorIdRoute;
-  VisitorIndexRoute: typeof VisitorIndexRoute;
+  IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
+  CreatevisitIndexRoute: typeof CreatevisitIndexRoute
+  VisitorIndexRoute: typeof VisitorIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  VisitorVisitorIdRoute: VisitorVisitorIdRoute,
+  LoginRoute: LoginRoute,
+  CreatevisitIndexRoute: CreatevisitIndexRoute,
   VisitorIndexRoute: VisitorIndexRoute,
 }
 
@@ -122,7 +135,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/visitor/$visitorId",
+        "/login",
+        "/createvisit/",
         "/visitor/"
       ]
     },
