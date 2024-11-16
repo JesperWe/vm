@@ -10,6 +10,7 @@ interface VisitSectionProps {
 const GET_VISIT = gql`
   query Visit_by_pk($visitId: uuid!) {
     visit_by_pk(id: $visitId) {
+      access_granted
       during
       host_id
       id
@@ -38,7 +39,7 @@ const GET_VISIT = gql`
 `;
 
 export default function VisitSection({ visitId, userId }: VisitSectionProps) {
-  const [visitResult] = useQuery({
+  const [visitResult, reexecuteQuery] = useQuery({
     query: GET_VISIT,
     variables: { visitId: visitId },
   });
@@ -50,5 +51,13 @@ export default function VisitSection({ visitId, userId }: VisitSectionProps) {
     return <></>;
   }
 
-  return <>{isHost ? <VisitHostSection meeting={meeting} /> : <></>}</>;
+  return (
+    <>
+      {isHost ? (
+        <VisitHostSection meeting={meeting} refetch={() => reexecuteQuery()} />
+      ) : (
+        <></>
+      )}
+    </>
+  );
 }

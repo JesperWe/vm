@@ -40,13 +40,11 @@ const GET_ROOMS = gql`
   }
 `;
 
-interface Props{
+interface Props {
   hostId: string;
 }
 
-function VisitForm({hostId}: Props) {
-
-
+function VisitForm({ hostId }: Props) {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
