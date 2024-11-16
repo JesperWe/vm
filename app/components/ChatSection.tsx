@@ -13,6 +13,8 @@ import { useState } from 'react';
 import { Message } from '../types/chatTypes';
 import { createClient as createWSClient } from 'graphql-ws';
 import ChatRecommendations from './ChatRecommendations';
+import { Meeting } from '../types/visitTypes';
+import { useNavigate } from '@tanstack/react-router';
 
 interface ChatSectionProps {
   userId: string;
@@ -45,11 +47,30 @@ const SEND_MESSAGE = gql`
 const GET_VISIT = gql`
   query Visit_by_pk($visitId: uuid!) {
     visit_by_pk(id: $visitId) {
+      access_granted
       during
       host_id
       id
       room_id
       visitor_email
+      visitor {
+        email
+        id
+        name
+        role
+      }
+      room {
+        floor
+        id
+        locked
+        name
+      }
+      host {
+        email
+        id
+        name
+        role
+      }
     }
   }
 `;
@@ -82,13 +103,15 @@ export default function ChatSection({ visitId, userId }: ChatSectionProps) {
     return <></>;
   }
 
+  const navigate = useNavigate();
   const [_, sendMessageMutation] = useMutation(SEND_MESSAGE);
   const [visitResult] = useQuery({
     query: GET_VISIT,
     variables: { visitId: visitId },
   });
   const { data: visitData, fetching } = visitResult;
-  const isHost = visitData?.visit_by_pk.host_id === userId;
+  const meeting: Meeting = visitData?.visit_by_pk;
+  const isHost = meeting?.host_id === userId;
 
   const [data, setData] = useState<Message[] | undefined>([]);
   const [message, setMessage] = useState<string>('');
@@ -110,6 +133,33 @@ export default function ChatSection({ visitId, userId }: ChatSectionProps) {
 
   return (
     <Flex direction={'column'} maw={1080} mx={'auto'} style={{ height: '100vh' }}>
+      <Flex py={12} pos={'relative'}>
+        <Text
+          ta="center"
+          fw={500}
+          size="lg"
+          style={{ width: '100%' }}
+        >{`Chatting with ${isHost ? meeting.visitor.name : meeting.host.name}`}</Text>
+        <Button
+          pos={'absolute'}
+          size="sm"
+          variant="transparent"
+          style={{
+            top: '50%',
+            left: 0,
+            transform: 'translate(0, -50%)',
+            color: 'black',
+          }}
+          onClick={() => {
+            navigate({
+              to: '/visit',
+              search: (prev) => ({ ...prev, visitId: meeting.id }),
+            });
+          }}
+        >
+          {'< back'}
+        </Button>
+      </Flex>
       <ChatMessageSection messages={data} userId={userId} />
       <Flex px={24} py={20} gap={10} direction={'column'}>
         <ChatRecommendations isHost={isHost} sendMessage={sendMessage} />
