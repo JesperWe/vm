@@ -5,6 +5,7 @@ import VisitSection from '../../components/VisitSection';
 type visitState = {
   visitId: string;
   userId: string;
+  during: string;
 };
 
 export const Route = createFileRoute('/visit/')({
@@ -12,13 +13,14 @@ export const Route = createFileRoute('/visit/')({
     return {
       visitId: search.visitId as string,
       userId: search.userId as string,
+      during: search.during as string,
     };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { visitId, userId } = Route.useSearch();
+  const { visitId, userId, during } = Route.useSearch();
 
-  return <VisitSection visitId={visitId} userId={userId} />;
+  return <VisitSection visitId={visitId} userId={userId} during={during} />;
 }
