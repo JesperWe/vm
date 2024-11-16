@@ -3,7 +3,8 @@ import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { gql, useMutation, useQuery } from 'urql';
 import '@mantine/dates/styles.css';
-import { useSearch } from '@tanstack/react-router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import { Route } from '../routes';
 
 // Mutation query to insert visit
 const INSERT_VISIT = gql`
@@ -64,6 +65,7 @@ function VisitForm({hostId}: Props) {
     },
   });
 
+  const navigate = useNavigate({ from: Route.fullPath });
   const [res] = useQuery({ query: GET_ROOMS });
   const { data, fetching, error } = res;
   const [insertVisitResult, insertVisit] = useMutation(INSERT_VISIT);
@@ -94,13 +96,19 @@ function VisitForm({hostId}: Props) {
       if (response.error) {
         console.error('Error inserting visit:', response.error);
       } else {
+        const visitId = response.data?.insert_visit_one?.id;
         console.log('Visit inserted:', response.data);
         form.reset();
+        navigate({
+          to: '/visit',
+          search: { userId: hostId, visitId },
+        });
       }
     } catch (err) {
       console.error('Error inserting visit:', err);
     }
   };
+
   return (
     <form
       onSubmit={form.onSubmit(handleSubmit)}
