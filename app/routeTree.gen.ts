@@ -15,7 +15,9 @@ import { Route as LoginImport } from './routes/login'
 import { Route as DoorsImport } from './routes/doors'
 import { Route as IndexImport } from './routes/index'
 import { Route as VisitorIndexImport } from './routes/visitor/index'
+import { Route as VisitIndexImport } from './routes/visit/index'
 import { Route as CreatevisitIndexImport } from './routes/createvisit/index'
+import { Route as ChatIndexImport } from './routes/chat/index'
 
 // Create/Update Routes
 
@@ -43,9 +45,21 @@ const VisitorIndexRoute = VisitorIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const VisitIndexRoute = VisitIndexImport.update({
+  id: '/visit/',
+  path: '/visit/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const CreatevisitIndexRoute = CreatevisitIndexImport.update({
   id: '/createvisit/',
   path: '/createvisit/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ChatIndexRoute = ChatIndexImport.update({
+  id: '/chat/',
+  path: '/chat/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,11 +88,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
+    '/chat/': {
+      id: '/chat/'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/createvisit/': {
       id: '/createvisit/'
       path: '/createvisit'
       fullPath: '/createvisit'
       preLoaderRoute: typeof CreatevisitIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/visit/': {
+      id: '/visit/'
+      path: '/visit'
+      fullPath: '/visit'
+      preLoaderRoute: typeof VisitIndexImport
       parentRoute: typeof rootRoute
     }
     '/visitor/': {
@@ -97,7 +125,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/doors': typeof DoorsRoute
   '/login': typeof LoginRoute
+  '/chat': typeof ChatIndexRoute
   '/createvisit': typeof CreatevisitIndexRoute
+  '/visit': typeof VisitIndexRoute
   '/visitor': typeof VisitorIndexRoute
 }
 
@@ -105,7 +135,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/doors': typeof DoorsRoute
   '/login': typeof LoginRoute
+  '/chat': typeof ChatIndexRoute
   '/createvisit': typeof CreatevisitIndexRoute
+  '/visit': typeof VisitIndexRoute
   '/visitor': typeof VisitorIndexRoute
 }
 
@@ -114,16 +146,40 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/doors': typeof DoorsRoute
   '/login': typeof LoginRoute
+  '/chat/': typeof ChatIndexRoute
   '/createvisit/': typeof CreatevisitIndexRoute
+  '/visit/': typeof VisitIndexRoute
   '/visitor/': typeof VisitorIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/doors' | '/login' | '/createvisit' | '/visitor'
+  fullPaths:
+    | '/'
+    | '/doors'
+    | '/login'
+    | '/chat'
+    | '/createvisit'
+    | '/visit'
+    | '/visitor'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/doors' | '/login' | '/createvisit' | '/visitor'
-  id: '__root__' | '/' | '/doors' | '/login' | '/createvisit/' | '/visitor/'
+  to:
+    | '/'
+    | '/doors'
+    | '/login'
+    | '/chat'
+    | '/createvisit'
+    | '/visit'
+    | '/visitor'
+  id:
+    | '__root__'
+    | '/'
+    | '/doors'
+    | '/login'
+    | '/chat/'
+    | '/createvisit/'
+    | '/visit/'
+    | '/visitor/'
   fileRoutesById: FileRoutesById
 }
 
@@ -131,7 +187,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DoorsRoute: typeof DoorsRoute
   LoginRoute: typeof LoginRoute
+  ChatIndexRoute: typeof ChatIndexRoute
   CreatevisitIndexRoute: typeof CreatevisitIndexRoute
+  VisitIndexRoute: typeof VisitIndexRoute
   VisitorIndexRoute: typeof VisitorIndexRoute
 }
 
@@ -139,7 +197,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DoorsRoute: DoorsRoute,
   LoginRoute: LoginRoute,
+  ChatIndexRoute: ChatIndexRoute,
   CreatevisitIndexRoute: CreatevisitIndexRoute,
+  VisitIndexRoute: VisitIndexRoute,
   VisitorIndexRoute: VisitorIndexRoute,
 }
 
@@ -156,7 +216,9 @@ export const routeTree = rootRoute
         "/",
         "/doors",
         "/login",
+        "/chat/",
         "/createvisit/",
+        "/visit/",
         "/visitor/"
       ]
     },
@@ -169,8 +231,14 @@ export const routeTree = rootRoute
     "/login": {
       "filePath": "login.tsx"
     },
+    "/chat/": {
+      "filePath": "chat/index.tsx"
+    },
     "/createvisit/": {
       "filePath": "createvisit/index.tsx"
+    },
+    "/visit/": {
+      "filePath": "visit/index.tsx"
     },
     "/visitor/": {
       "filePath": "visitor/index.tsx"

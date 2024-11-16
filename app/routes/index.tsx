@@ -99,7 +99,7 @@ function Home() {
             disabled={!value}
             onClick={() => {
               navigate({
-                to: '/visitor',
+                to: '/visit',
                 search: (prev) => ({...prev, visitId: value}),
               });
             }}
