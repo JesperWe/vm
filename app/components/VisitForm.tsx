@@ -1,24 +1,34 @@
-import { Button, Group, TextInput } from '@mantine/core';
-import { DateInput } from '@mantine/dates';
+import { Button, Group, Select, TextInput } from '@mantine/core';
+import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
-import { gql, useMutation } from 'urql';
+import { gql, useMutation, useQuery } from 'urql';
 
-//mutation query to insert visit
-export const INSERT_VISIT = gql`
+// Mutation query to insert visit
+const INSERT_VISIT = gql`
   mutation InsertVisit(
     $hostId: uuid
     $email: String!
-    $room: String!
+    $roomId: uuid!
     $during: tstzrange!
   ) {
     insert_visit_one(
-      object: { host_id: $hostId, visitor_email: $email, room: $room, during: $during }
+      object: { host_id: $hostId, visitor_email: $email, room_id: $roomId, during: $during }
     ) {
       during
       host_id
       id
-      room
+      room_id
       visitor_email
+    }
+  }
+`;
+
+//rooms query
+const GET_ROOMS = gql`
+  query GetRooms {
+    room {
+      id
+      name
     }
   }
 `;
@@ -29,7 +39,7 @@ function VisitForm() {
     initialValues: {
       hostId: '',
       email: '',
-      room: '',
+      roomId: '',
       startDate: null as Date | null,
       endDate: null as Date | null,
     },
@@ -37,11 +47,19 @@ function VisitForm() {
     validate: {
       hostId: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      room: (value) => (value.length < 1 ? 'Please enter a room.' : null),
+      roomId: (value) => (value.length < 1 ? 'Please select a room.' : null),
     },
   });
 
+  const [res] = useQuery({ query: GET_ROOMS });
+  const { data, fetching, error } = res;
   const [insertVisitResult, insertVisit] = useMutation(INSERT_VISIT);
+
+  //extracting data for the select
+  const roomOptions = data?.room.map((room: { id: string; name: string }) => ({
+    value: room.id, 
+    label: room.name, 
+  })) || [];
 
   const handleSubmit = async (values: typeof form.values) => {
     const { startDate, endDate } = values;
@@ -55,16 +73,20 @@ function VisitForm() {
       const response = await insertVisit({
         hostId: values.hostId,
         email: values.email,
-        room: values.room,
-        during: `[${startDate.toISOString()}, ${endDate.toISOString()})`,
+        roomId: values.roomId, 
+        during: `[${startDate.toISOString()}, ${endDate.toISOString()})`, 
       });
-      console.log('Visit inserted:', response.data);
-      form.reset();
+
+      if (response.error) {
+        console.error('Error inserting visit:', response.error);
+      } else {
+        console.log('Visit inserted:', response.data);
+        form.reset();
+      }
     } catch (err) {
       console.error('Error inserting visit:', err);
     }
-  };
-
+  }
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <TextInput
@@ -81,21 +103,22 @@ function VisitForm() {
         {...form.getInputProps('email')}
       />
 
-      <TextInput
+      <Select
         withAsterisk
         label="Room"
-        placeholder="Room number"
-        {...form.getInputProps('room')}
+        placeholder="Select a room"
+        data={roomOptions}
+        {...form.getInputProps('roomId')} 
       />
 
-      <DateInput
+      <DateTimePicker
         withAsterisk
         label="Start Date"
         placeholder="Select start date"
         {...form.getInputProps('startDate')}
       />
 
-      <DateInput
+      <DateTimePicker
         withAsterisk
         label="End Date"
         placeholder="Select end date"
