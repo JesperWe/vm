@@ -1,5 +1,3 @@
-'use client';
-
 import { Box, Button, Flex, Paper, Text, TextInput } from '@mantine/core';
 import ChatMessageSection from './ChatMessageSection';
 import {
@@ -73,14 +71,14 @@ export default function ChatSection({ visitId, userId }: ChatSectionProps) {
   const [_, sendMessageMutation] = useMutation(SEND_MESSAGE);
 
   const [data, setData] = useState<Message[] | undefined>([]);
-  const [message, setMessage] = useState<string | undefined>();
+  const [message, setMessage] = useState<string>('');
 
-  const sendMessage = (message: string | undefined) => {
+  const sendMessage = (message: string) => {
     if (message) {
       sendMessageMutation({
         object: { from_user_id: userId, visit_id: visitId, message: message },
       });
-      setMessage(undefined);
+      setMessage('');
     }
   };
 
@@ -100,6 +98,11 @@ export default function ChatSection({ visitId, userId }: ChatSectionProps) {
         <TextInput
           value={message}
           onChange={(event) => setMessage(event.currentTarget.value)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' && message) {
+              sendMessage(message);
+            }
+          }}
           placeholder="Send a message here!"
           style={{ width: '95%' }}
         />
