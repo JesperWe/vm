@@ -20,6 +20,7 @@ interface Host {
 }
 
 export interface Meeting {
+  access_granted: boolean;
   during: string;
   host_id: string;
   id: string;

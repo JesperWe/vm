@@ -1,9 +1,30 @@
 import { useNavigate } from '@tanstack/react-router';
 import { Meeting } from '../types/visitTypes';
 import { Button, Flex, Text } from '@mantine/core';
+import { gql, useMutation } from 'urql';
 
-export default function VisitHostSection({ meeting }: { meeting: Meeting }) {
+const MUTATE_ACCESS = gql`
+  mutation Update_visit($id: uuid, $access: Boolean) {
+    update_visit(where: { id: { _eq: $id } }, _set: { access_granted: $access }) {
+      affected_rows
+    }
+  }
+`;
+
+interface VisitHostSectionProps {
+  meeting: Meeting;
+  refetch: () => void;
+}
+
+export default function VisitHostSection({ meeting, refetch }: VisitHostSectionProps) {
   const navigate = useNavigate();
+
+  const [_, sendMutation] = useMutation(MUTATE_ACCESS);
+
+  const grantAccess = () => {
+    sendMutation({ id: meeting.id, access: true });
+    refetch();
+  };
 
   return (
     <Flex
@@ -23,12 +44,20 @@ export default function VisitHostSection({ meeting }: { meeting: Meeting }) {
           'Your visitor just let you know they are here. Give them access or let them know if you need more time.'
         }
       </Text>
-      <Button color="black" size="md">
-        <Text>Give access</Text>
-      </Button>
-      <Button variant="default" size="md">
-        Deny access
-      </Button>
+      {!meeting.access_granted ? (
+        <>
+          <Button color="black" size="md" onClick={() => grantAccess()}>
+            <Text>Give access</Text>
+          </Button>
+          <Button variant="default" size="md">
+            Deny access
+          </Button>
+        </>
+      ) : (
+        <Text ta={'center'} fw={600} style={{ fontSize: 24 }}>
+          Access granted!
+        </Text>
+      )}
       <Flex
         pos={'absolute'}
         style={{
