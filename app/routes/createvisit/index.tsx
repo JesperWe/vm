@@ -21,12 +21,12 @@ const { userId } = Route.useSearch()
 
   return (
     <Flex direction={'column'} justify={'center'} align={'center'} w={'100%'}>
-      <Container px={"24"} pt={"108"}>
+      <Container px={'24'} pt={'108'}>
         <Flex direction={'column'} mb={24} gap={8}>
           <Title order={1} size={24}>
             Register your visitor
           </Title>
-          <Title order={2} size={16} font-weight style={{fontWeight:"400"}} >
+          <Title order={2} size={16} font-weight style={{ fontWeight: '400' }}>
             Add some details about your visitor to get an invite link.
           </Title>
         </Flex>

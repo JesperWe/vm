@@ -1,5 +1,6 @@
-import { Flex, Text } from '@mantine/core';
 import { gql, useQuery } from 'urql';
+import { Meeting } from '../types/visitTypes';
+import VisitHostSection from './VisitHostSection';
 
 interface VisitSectionProps {
   userId: string;
@@ -42,12 +43,12 @@ export default function VisitSection({ visitId, userId }: VisitSectionProps) {
     variables: { visitId: visitId },
   });
   const { data: visitData, fetching } = visitResult;
-  const visit = visitData?.visit_by_pk;
-  const isHost = visit?.host_id === userId;
+  const meeting: Meeting = visitData?.visit_by_pk;
+  const isHost = meeting?.host_id === userId;
 
   if (fetching) {
     return <></>;
   }
 
-  return <Flex>{isHost ? <><Text>{`${visit?.visitor.name} has arrived`}</Text></> : <></>}</Flex>;
+  return <>{isHost ? <VisitHostSection meeting={meeting} /> : <></>}</>;
 }
