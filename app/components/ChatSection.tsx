@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, Button, Flex, Paper, Text, TextInput } from '@mantine/core';
 import ChatMessageSection from './ChatMessageSection';
 import { Message } from '../types/chatTypes';
