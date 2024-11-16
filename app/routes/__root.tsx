@@ -1,8 +1,8 @@
 import { MantineProvider } from '@mantine/core';
-import { Outlet, ScrollRestoration, createRootRoute } from '@tanstack/react-router';
+import { createRootRoute, Outlet, ScrollRestoration } from '@tanstack/react-router';
 import { Meta, Scripts } from '@tanstack/start';
 import type { ReactNode } from 'react';
-import { Client, Provider, cacheExchange, fetchExchange } from 'urql';
+import { cacheExchange, Client, fetchExchange, Provider } from 'urql';
 import '@mantine/core/styles.css';
 
 export const Route = createRootRoute({

@@ -5,7 +5,6 @@ import {
   Button,
   Center,
   Checkbox,
-  Divider,
   Group,
   Paper,
   PaperProps,
@@ -16,6 +15,16 @@ import {
 } from '@mantine/core';
 import { useNavigate } from '@tanstack/react-router';
 import { Route } from '../routes/__root';
+import { gql, useQuery } from 'urql';
+
+const UserQuery = gql`
+  query {
+    users {
+      id
+      email
+    }
+  }
+`;
 
 export function Login(props: PaperProps) {
   const [type, toggle] = useToggle(['login', 'register']);
@@ -34,6 +43,10 @@ export function Login(props: PaperProps) {
         val.length <= 6 ? 'Password should include at least 6 characters' : null,
     },
   });
+  const [result] = useQuery({ query: UserQuery });
+
+  const { data, fetching, error } = result;
+  if (fetching) return <p>Loading...</p>;
 
   return (
     <Center>
@@ -44,11 +57,13 @@ export function Login(props: PaperProps) {
 
         <form
           onSubmit={form.onSubmit((values) => {
-            console.log(values);
-            navigate({
-              to: '/',
-              search: (prev) => ({ userId: values.email, visitId: '' }),
-            });
+            console.log({ values, data });
+            const user = data.users.find((u) => u.email === values.email);
+            if (user)
+              navigate({
+                to: '/',
+                search: (prev) => ({ userId: user.id, visitId: '' }),
+              });
           })}
         >
           <Stack>

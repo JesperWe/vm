@@ -2,13 +2,7 @@
 
 import { Box, Button, Flex, Paper, Text, TextInput } from '@mantine/core';
 import ChatMessageSection from './ChatMessageSection';
-import {
-  cacheExchange,
-  Client,
-  fetchExchange,
-  gql,
-  subscriptionExchange,
-} from 'urql';
+import { cacheExchange, Client, fetchExchange, gql, subscriptionExchange } from 'urql';
 import { useState } from 'react';
 import { Message } from '../types/chatTypes';
 import { createClient as createWSClient } from 'graphql-ws';
